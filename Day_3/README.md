@@ -1,357 +1,367 @@
-# Day 3 – RTL Optimization and Synthesis
+# Day 3 - RTL Optimization and Sequential Logic
 
-## Overview
+Day 3 was focused on exploring sequential circuits and
+understanding how synthesis tools optimize RTL descriptions.
 
-Day 3 focuses on understanding how synthesis tools optimize an RTL design and convert it into an efficient gate-level implementation.
+The experiments included D flip-flops, counters, constant
+logic, and different combinational logic optimization cases.
 
-The experiments performed in this session cover basic logic optimization, constant propagation in D flip-flops, sequential logic optimization, and counter optimization.
+The designs were simulated to verify their functionality and
+were synthesized using Yosys to observe the resulting
+hardware implementation.
 
-The designs were synthesized using Yosys and the synthesized results were examined to understand how RTL descriptions are transformed into hardware.
+---
 
-## Table of Contents
+# Index
 
-Objective
+1. [Objective](#1-objective)
+2. [DFF Constant 1](#2-dff-constant-1)
+3. [DFF Constant 2](#3-dff-constant-2)
+4. [DFF Constant 3](#4-dff-constant-3)
+5. [Counter](#5-counter)
+6. [Optimization Check 1](#6-optimization-check-1)
+7. [Optimization Check 2](#7-optimization-check-2)
+8. [Optimization Check 3](#8-optimization-check-3)
+9. [Optimization Check 4](#9-optimization-check-4)
+10. [Overall Learning](#10-overall-learning)
+11. [Conclusion](#11-conclusion)
 
-1. RTL Optimization
-  
-2. Logic Optimization
+---
 
-   AND Logic
-   
-   OR Logic
-   
-   Three-Input AND Logic
-   
-3. Constant Propagation
- 
-4. D Flip-Flop Optimization
+# 1. Objective
 
-   DFF Constant 1
-   
-   DFF Constant 2
-   
-   DFF Constant 3
-   
-5. Counter Optimization
+The main objective of Day 3 was to understand how RTL
+descriptions are converted into hardware during synthesis
+and how Yosys optimizes the generated logic.
 
-6. Importance of Optimization
+The important concepts explored were:
 
-Key Observations
+- D flip-flop based sequential circuits
+- Clock and reset operation
+- Constant value propagation
+- Sequential logic optimization
+- Counter implementation
+- Combinational logic optimization
+- RTL simulation
+- Waveform verification using GTKWave
+- Gate-level representation using Yosys
 
-Conclusion
+---
 
-## Objective
+# 2. DFF Constant 1
 
-The main objectives of this session are:
+## What I designed
 
-To understand the purpose of RTL optimization during synthesis.
+In this experiment, I worked with a D flip-flop whose
+behavior is controlled by a constant value.
 
-To understand how synthesis tools simplify digital logic.
+The design uses a clock and reset along with the flip-flop
+output.
 
-To observe how Boolean expressions are mapped into hardware cells.
+The main purpose was to observe how a constant input affects
+the behavior of a sequential element.
 
-To study constant propagation in combinational and sequential circuits.
+## Simulation
 
-To understand how redundant or unnecessary hardware can be eliminated.
+The design was simulated and the waveform was observed to
+verify the output behavior with respect to the clock and
+reset signals.
 
-To examine synthesized gate-level representations.
+### Simulation Result
 
-To study optimization in sequential circuits such as counters.
+![DFF Constant 1 Waveform](./dffconst1%20waveform.png)
 
-To verify sequential circuits using simulation waveforms.
+## Synthesis
 
-## 1. RTL Optimization
+The design was synthesized using Yosys.
 
-RTL optimization is the process of improving the hardware implementation of an RTL design without changing its intended functionality.
+Yosys analyzed the RTL and generated a simplified hardware
+representation based on the constant logic present in the
+design.
 
-An RTL description specifies what the circuit should do, but several different hardware structures can implement the same function.
-The synthesis tool analyzes the RTL and selects an appropriate implementation based on the target technology and available standard-cell library.
+### Synthesized Result
 
-During optimization, the synthesis tool can perform operations such as:
+![DFF Constant 1](./dffconst1.png)
 
-Boolean simplification
+## Observation
 
-Constant propagation
+This experiment shows that constant signals can make a
+sequential design simpler during synthesis.
 
-Removal of redundant logic
+---
 
-Removal of unused signals
+# 3. DFF Constant 2
 
-Logic restructuring
+## What I designed
 
-Technology mapping
+The second experiment was another D flip-flop based design
+used to study constant logic during synthesis.
 
-Sequential optimization
+The circuit includes sequential behavior controlled by the
+clock and reset signals.
 
-The objective is to obtain an implementation that performs the required function with efficient use of hardware resources.
+The experiment was useful for understanding how synthesis
+tools identify fixed values in an RTL description.
 
-Optimization can have a direct effect on important physical design parameters such as:
+## Simulation
 
-Area
+The waveform was observed to check the relationship between
+the clock, reset, and output signals.
 
-Power consumption
+### Simulation Result
 
-Timing
+![DFF Constant 2 Waveform](./dff%20const%202%20waveform.png)
 
-Number of standard cells
+## Synthesis
 
-Switching activity
+The RTL design was processed through Yosys synthesis.
 
-Therefore, RTL optimization is an important step between RTL design and physical implementation.
+The resulting circuit represents the optimized hardware
+after synthesis.
 
-## 2. Logic Optimization
+### Synthesized Result
 
-Logic optimization deals with simplifying combinational logic while preserving its logical behavior.
+![DFF Constant 2](./dffconst2.png)
 
-For example, a Boolean expression may contain constants or redundant terms that can be simplified before being implemented as hardware.
+## Observation
 
-Some basic Boolean identities used during optimization are:
+The synthesized result demonstrates that Yosys can simplify
+logic when the input to a sequential element remains fixed.
 
-A AND 1 = A
+---
 
-A AND 0 = 0
+# 4. DFF Constant 3
 
-A OR 0 = A
+## What I designed
 
-A OR 1 = 1
+This experiment contains another D flip-flop with constant
+logic.
 
-These identities allow synthesis tools to simplify logic.
+The objective was to compare the RTL behavior with the
+hardware representation generated after synthesis.
 
-The synthesis tool also maps the optimized logic into cells available in the selected technology library.
+## Simulation
 
-The following experiments demonstrate the synthesis of simple combinational logic.
+The circuit was simulated and the output waveform was
+observed using GTKWave.
 
-## AND Logic
+The clock and reset conditions were checked to verify the
+expected sequential behavior.
 
-The first experiment deals with a basic AND operation.
+### Simulation Result
 
-An AND gate produces a logic HIGH at its output only when all of its inputs are HIGH.
+![DFF Constant 3 Waveform](./dffconst3waveform.png)
 
-For a two-input AND gate:
+## Synthesis
 
-Y = A · B
-The RTL description is synthesized and mapped to the appropriate logic cell available in the target technology library.
+The design was synthesized using Yosys.
 
-## Synthesized Result
+Yosys optimized the RTL and generated the corresponding
+gate-level representation.
 
-The synthesized representation shows the hardware implementation obtained from the RTL description.
+### Synthesized Result
 
-This demonstrates that a simple RTL Boolean expression can be represented by a corresponding standard cell after synthesis.
+![DFF Constant 3](./dffconst3.png)
 
-## OR Logic
+## Observation
 
-The second experiment deals with an OR operation.
+This experiment shows how constant logic can be simplified
+by the synthesis tool while maintaining the required
+functionality.
 
-An OR gate produces a logic HIGH when at least one of its inputs is HIGH.
+---
 
-For a two-input OR gate:
+# 5. Counter
 
-Y = A + B
-During synthesis, the Boolean function is analyzed and mapped to the corresponding hardware cell.
+## What I designed
 
-## Synthesized Result
+In this experiment, I worked with a counter implemented
+using sequential logic.
 
-The result demonstrates how the RTL Boolean operation is represented at the synthesized level.
+A counter changes its state based on clock transitions.
+A reset signal can be used to bring the counter back to
+its initial state.
 
-## Three-Input AND Logic
+The main signals involved in the design are:
 
-The third experiment uses three inputs for an AND operation.
+- Clock
+- Reset
+- Counter output
 
-The Boolean expression is:
+## Simulation
 
-Y = A · B · C
+The counter was simulated to verify that its output changes
+according to the applied clock signal.
 
-The output becomes HIGH only when all three inputs are HIGH.
-The synthesis tool identifies the required logic function and maps it to a suitable implementation from the target library.
+The waveform was used to observe the sequential behavior
+of the counter.
 
-Synthesized Result
+### Counter Simulation Result
 
-This experiment shows how a multi-input Boolean operation is represented after synthesis.
+![Counter Simulation](./counter.png)
 
-## 3. Constant Propagation
+## Synthesis
 
-Constant propagation is an optimization technique in which known constant values are propagated through the logic of a design.
+The counter was also synthesized to understand how the RTL
+counter is represented as hardware.
 
-If a signal is permanently known to be 0 or 1, the synthesis tool can use that information to simplify connected logic.
+### Counter Block Diagram
 
-For example:
+![Counter Block Diagram](./counter%20block.png)
 
-A AND 0 = 0
+## Observation
 
-A AND 1 = A
+The counter experiment helped in understanding how multiple
+sequential elements can work together to form a larger
+digital circuit.
 
-A OR 0 = A
+---
 
-A OR 1 = 1
+# 6. Optimization Check 1
 
-Therefore, if one input of an AND gate is permanently connected to 0, the gate does not need to perform an actual AND operation because its output will always be 0.
+## What I designed
 
-Similarly, if one input of an OR gate is permanently connected to 1, its output will always be 1.
+This experiment was performed to study the optimization of
+a simple combinational logic expression.
 
-Constant propagation is not limited to combinational logic. It can also be applied to sequential circuits when the synthesis tool can determine that the stored value is fixed.
+The RTL contains basic logic operations that can be analyzed
+and simplified during synthesis.
 
-This can reduce the amount of hardware required in the final implementation.
+## Synthesis
 
-## 4. D Flip-Flop Optimization
+The design was passed through the Yosys synthesis flow.
 
-The next set of experiments focuses on sequential logic.
+Yosys examined the Boolean logic and generated an optimized
+hardware representation.
 
-A D flip-flop is a basic storage element used in synchronous digital circuits.
+### Result
 
-The D input represents the data to be stored, while the clock controls when the data is transferred to the output.
+![Optimization Check 1](./opt%20check1.png)
 
-In a simplified positive-edge-triggered D flip-flop:
+## Observation
 
-Q(next) = D
+The result demonstrates that the synthesized circuit may be
+simpler than the original RTL description because unnecessary
+logic can be removed during optimization.
 
-at the active clock edge.
+---
 
-If the D input is permanently connected to a constant value, the synthesis tool can determine the behavior of the flip-flop.
+# 7. Optimization Check 2
 
-For example:
+## What I designed
 
-D = 0
+This experiment uses another logic expression to examine
+how Yosys handles combinational logic during synthesis.
 
-means that after the appropriate clock operation, the stored value will be 0.
+The main purpose was to understand how the synthesis tool
+finds a suitable hardware implementation for the given RTL.
 
-Similarly:
+## Synthesis
 
-D = 1
+Yosys optimized the logic and generated the corresponding
+gate-level representation.
 
-means that the stored value will become 1.
+### Result
 
-This known information can be used by the synthesis tool to optimize the sequential circuit.
+![Optimization Check 2](./optcheck2.png)
 
-## DFF Constant 1
-The first experiment investigates a D flip-flop with a constant input.
+## Observation
 
-## Synthesized Circuit
+The synthesized circuit shows how a Boolean expression can
+be mapped into a smaller and more efficient hardware
+structure.
 
-## Simulation Waveform
+---
 
-The synthesized diagram shows the resulting sequential structure after synthesis.
+# 8. Optimization Check 3
 
-This experiment demonstrates how a constant signal can be connected to the data input of a storage element.
+## What I designed
 
-## DFF Constant 2
+This experiment was used to study another example of
+combinational logic optimization.
 
-The second experiment further examines the effect of a constant value on the D flip-flop.
+The RTL description was processed through Yosys to observe
+the changes made during synthesis.
 
-When the synthesis tool identifies that a signal does not change, it can propagate that constant value through the surrounding logic.
+## Synthesis
 
-## Synthesized Circuit
+During synthesis, Yosys analyzed the logic and removed
+unnecessary operations wherever possible.
 
-## Simulation Waveform
+### Result
 
-The waveform is used to observe the behaviour of the sequential circuit with respect to the clock and output signals.
+![Optimization Check 3](./opt%20check%203.png)
 
-The simulation provides a functional check of the synthesized design.
+## Observation
 
-## DFF Constant 3 
-The third experiment continues the study of constant propogation and sequential optimization.
+The generated hardware representation helps in understanding
+how synthesis converts RTL logic into standard gate-level
+structures.
 
-At this stage, the effect of constant information on the synthesized sequential structure can be observed more clearly.
+---
 
-## Synthesized Circuit
+# 9. Optimization Check 4
 
-## Simulation Waveform
+## What I designed
 
+The fourth optimization experiment was used to further
+observe the behavior of Yosys when processing simple
+combinational logic.
 
-The waveform helps verify that the optimized circuit continues to produce the expected behavior.
+The experiment helps in understanding how different RTL
+descriptions can be optimized into efficient hardware.
 
-The experiment demonstrates the importance of checking both the synthesized structure and the functional simulation.
+## Synthesis
 
-## 5. Counter Optimization
+The design was synthesized using Yosys and the optimized
+result was observed.
 
-A counter is a sequential circuit that progresses through a predefined sequence of states.
+### Result
 
-A binary counter generally consists of multiple flip-flops along with combinational logic that determines the next state.
+![Optimization Check 4](./opt%20check%204.png)
 
-For an N-bit binary counter, the number of possible states is:
+## Observation
 
-2^N
+The result shows that Yosys performs optimization before
+producing the final synthesized representation.
 
-For example, a 3-bit counter can represent:
+This can reduce unnecessary hardware and provide a simpler
+implementation of the required logic.
 
-000 → 001 → 010 → 011 → 100 → 101 → 110 → 111
+---
 
-and then return to:
+# 10. Overall Learning
 
-000
+Through the Day 3 experiments, I learned:
 
-Counters are useful examples for studying sequential optimization because they contain both storage elements and next-state logic.
+- How D flip-flops operate as sequential elements.
+- How clock signals control sequential circuits.
+- How reset signals initialize sequential designs.
+- How constant values affect D flip-flop circuits.
+- How synthesis tools identify constant logic.
+- How Yosys simplifies unnecessary logic.
+- How counters are constructed using sequential logic.
+- How combinational logic can be optimized.
+- How GTKWave helps in checking simulation waveforms.
+- How Yosys generates gate-level circuit representations.
+- How RTL descriptions are transformed into hardware.
 
-During synthesis, the tool analyzes the counter structure and determines an efficient implementation based on the required functionality.
+---
 
-## Original Counter
+# 11. Conclusion
 
-The synthesized representation shows the hardware generated for the counter design.
+Day 3 provided practical experience with sequential logic
+and RTL optimization.
 
-## Modified Counter
+The experiments covered D flip-flops with constant logic,
+counter design, and several combinational optimization
+examples.
 
+By performing simulation and synthesis, I was able to
+understand the difference between an RTL description and its
+optimized hardware representation.
 
-The modified version provides a comparison of the synthesized implementation after changes were made to the design.
-
-The comparison helps demonstrate that even a small change in RTL can influence the resulting hardware structure.
-
-## 6. Importance of Optimization
-
-Optimization is important because the synthesized circuit directly affects the physical characteristics of the final chip.
-
-## Area
-
-Removing unnecessary logic reduces the number of standard cells required.
-
-A smaller circuit can reduce the silicon area occupied by the design.
-
-## Power
-
-Every switching circuit consumes dynamic power.
-
-Reducing unnecessary logic and switching activity can help reduce power consumption.
-
-## Timing
-
-The number and type of logic cells along a signal path affect propagation delay.
-
-Optimization can help produce shorter or more efficient critical paths.
-
-## Hardware Efficiency
-
-Optimization allows the same functionality to be implemented using fewer or more suitable hardware resources.
-
-Therefore, optimization is an important part of achieving a practical VLSI implementation.
-
-## Key Observations
-
-The experiments performed during Day 3 demonstrate the following:
-
-1.RTL Boolean expressions can be converted into corresponding hardware cells during synthesis.
-
-2.Different Boolean functions produce different synthesized structures.
-
-3.Boolean identities can be used to simplify combinational logic.
-
-4.Constant values can be propagated through sequential logic.
-
-5.Synthesis can simplify unnecessary portions of a design.
-
-6.The synthesized circuit can have a different structure from the original RTL while maintaining the required functionality.
-
-7.Sequential circuits require special consideration because their behavior depends on stored state and clock events.
-
-8.Counter designs contain both storage elements and combinational next-state logic.
-
-9.Simulation waveforms are useful for verifying optimized sequential designs.
-
-10.Optimization can influence area, power, timing, and overall hardware efficiency.
-
-## Conclusion
-Day 3 provided practical experience with RTL optimization and synthesis.
-
-The combinational logic experiments demonstrated how basic Boolean operations are mapped into hardware. The constant propagation experiments showed how known values can be used to simplify logic, while the D flip-flop experiments demonstrated the application of optimization techniques to sequential circuits.
-
-The counter experiment further demonstrated optimization in a larger sequential design containing storage elements and next-state logic.
-
-These experiments helped demonstrate that synthesis is not simply a direct conversion of RTL into gates. The synthesis tool analyzes the design, applies optimization techniques, and produces an efficient hardware representation while maintaining the intended functionality.
-
+Overall, these experiments helped me understand how Yosys
+analyzes RTL, removes unnecessary logic, and produces an
+efficient hardware implementation while maintaining the
+required circuit functionality.
