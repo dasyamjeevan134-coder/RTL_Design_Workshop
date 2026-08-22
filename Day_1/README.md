@@ -53,7 +53,7 @@ correctly.
 
 ### GTKWave Simulation Result
 
-![Good MUX Waveform](./goodmuxwaveform.png)
+![Good MUX Waveform](./goodmuxtbwaveform.png)
 
 ---
 
@@ -68,7 +68,7 @@ is represented at the gate level.
 
 ### Yosys Synthesized Block Diagram
 
-![Good MUX Netlist and Block Diagram](./goodmux_netlist_and_blockdiagram.png)
+![Good MUX Netlist and Block Diagram](./goodmuxnetlistandblockdiagram.png)
 
 ---
 
