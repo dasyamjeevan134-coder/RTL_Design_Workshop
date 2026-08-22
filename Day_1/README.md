@@ -68,7 +68,7 @@ is represented at the gate level.
 
 ### Yosys Synthesized Block Diagram
 
-![Good MUX Netlist and Block Diagram](./goodmux netlist and blocksdiagram.png)
+![Good Net list and Block Diagram](./goodmux netlist and blocksdiagram.png)
 
 ---
 
