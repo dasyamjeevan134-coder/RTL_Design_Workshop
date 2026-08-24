@@ -86,7 +86,7 @@ The RTL was synthesized using Yosys.
 The synthesized representation was examined to understand
 how the constant input affects the final hardware.
 
-![DFF Constant 1 Netlist](dff_const1_netlist%20and%20blockdiag.png)
+![DFF Constant 1 Netlist](dff_const1_netlist and blockdiagram.png)
 
 ## Result
 
