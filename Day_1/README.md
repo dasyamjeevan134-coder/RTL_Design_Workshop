@@ -168,7 +168,7 @@ The block diagram shows the input signals, select signal, multiplexer logic, and
 
 ### Netlist and Block Diagram Result
 
-![Good MUX Netlist and Block Diagram](./goodmux%20netlist%20and%20blockdiagram.png)
+![Good MUX Netlist and Block Diagram](./goodmux%20netlist%20and%20blocksdiagram.png)
 
 ## Result
 
