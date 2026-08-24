@@ -1,268 +1,317 @@
-# Day 5 - IF-ELSE, CASE, and Looping Constructs
+# Day 5 - Case Statements, Incomplete Assignments and Logic Synthesis
 
-Day 5 focuses on understanding incomplete RTL descriptions and
-how incomplete conditions can affect simulation and synthesis.
+Day 5 focuses on understanding different RTL coding styles and
+their effect on synthesized hardware.
 
-In this session, I worked with incomplete logic conditions and
-case statements. The designs were simulated using GTKWave and
-synthesized using Yosys to observe the difference between the
-RTL description and the resulting hardware.
+The experiments mainly deal with `case` statements, incomplete
+conditional assignments, MUX and DEMUX generation, and a Ripple
+Carry Adder (RCA).
 
-The experiments helped me understand how synthesis tools
-interpret incomplete assignments and how the RTL coding style
-can affect the synthesized circuit.
+The RTL designs were simulated to verify their functionality.
+The designs were then synthesized using Yosys and the generated
+netlists/block diagrams were studied to understand how different
+coding styles are converted into hardware.
 
 ---
 
-# Index
+## Contents
 
 1. [Objective](#1-objective)
-2. [Incomplete RTL Logic](#2-incomplete-rtl-logic)
-3. [Incomplete RTL Simulation](#3-incomplete-rtl-simulation)
-4. [Incomplete RTL Netlist](#4-incomplete-rtl-netlist)
-5. [Incomplete Case Statement](#5-incomplete-case-statement)
-6. [Incomplete Case Simulation](#6-incomplete-case-simulation)
-7. [Incomplete Case Netlist](#7-incomplete-case-netlist)
-8. [Second Incomplete Design](#8-second-incomplete-design)
-9. [Overall Learning](#9-overall-learning)
-10. [Conclusion](#10-conclusion)
+2. [Bad Case](#2-bad-case)
+3. [Complete Case](#3-complete-case)
+4. [DEMUX using Case](#4-demux-using-case)
+5. [DEMUX using Generate](#5-demux-using-generate)
+6. [Incomplete If-Else](#6-incomplete-if-else)
+7. [Incomplete Case](#7-incomplete-case)
+8. [MUX using Generate](#8-mux-using-generate)
+9. [Partial Case](#9-partial-case)
+10. [Ripple Carry Adder](#10-ripple-carry-adder)
+11. [Overall Learning](#11-overall-learning)
+12. [Conclusion](#12-conclusion)
 
 ---
 
 # 1. Objective
 
-The main objective of Day 5 was to understand the importance
-of complete RTL descriptions and how incomplete conditions
-are handled during simulation and synthesis.
+The main objectives of Day 5 are:
 
-The main concepts covered were:
-
-- Incomplete RTL logic
-- Conditional statements
-- Case statements
-- Complete and incomplete assignments
-- RTL simulation
-- GTKWave waveform analysis
-- Yosys synthesis
-- Netlist generation
-- Difference between RTL and synthesized hardware
-- Importance of proper RTL coding
+- To understand different RTL conditional coding styles.
+- To study the working of `case` statements.
+- To understand the effect of incomplete conditions.
+- To observe how incomplete assignments can lead to unwanted
+  hardware such as latches.
+- To study MUX and DEMUX implementation using RTL constructs.
+- To understand generate-based hardware structures.
+- To compare RTL descriptions with synthesized netlists.
+- To verify designs using simulation waveforms.
+- To understand the implementation of a Ripple Carry Adder.
 
 ---
 
-# 2. Incomplete RTL Logic
+# 2. Bad Case
 
-## What I designed
+The bad case experiment demonstrates an improper or incomplete
+use of a `case` statement.
 
-In this experiment, I worked with an RTL design containing
-incomplete logic conditions.
+When all possible input conditions are not properly assigned,
+the synthesis tool may infer storage elements or produce
+unexpected hardware behavior.
 
-An incomplete RTL description occurs when an output is not
-assigned for every possible input condition.
+The design was simulated first and the waveform was examined.
+The corresponding synthesized hardware was then observed.
 
-When this happens, the previous value of the output may need
-to be retained. Depending on the type of logic, this can
-result in storage behavior such as a latch during synthesis.
+### Files
 
-## Purpose
+- `bad_case waveform.png`
+- `badcase gls.png`
+- `badcase netlist and waveform.png`
 
-The purpose of this experiment was to understand how an
-incomplete RTL description is interpreted by synthesis tools.
+### Waveform
 
-## Synthesis
-
-The RTL was synthesized using Yosys and the resulting
-hardware representation was observed.
-
-![Incomplete RTL](incomp.png)
-
-## Result
-
-This experiment showed that the way RTL is written can affect
-the hardware inferred by the synthesis tool.
-
----
-
-# 3. Incomplete RTL Simulation
-
-## What I observed
-
-The incomplete RTL design was simulated to check how the
-output behaves when different input conditions are applied.
-
-GTKWave was used to observe the input and output signals
-over time.
-
-The waveform helps identify situations where the output does
-not receive a new assignment for every input condition.
-
-## Waveform
-
-![Incomplete RTL Waveform](incompwaveform.png)
-
-## Result
-
-The simulation helped me understand the behavior of an
-incomplete RTL description and how the output responds to
-different input combinations.
-
----
-
-# 4. Incomplete RTL Netlist
-
-## Synthesis
-
-After simulation, the design was synthesized using Yosys.
-
-The generated netlist was examined to understand what
-hardware structure was inferred from the incomplete RTL.
-
-![Incomplete RTL Netlist](incompnetlist.png)
-
-## Result
-
-The synthesized netlist demonstrates how Yosys converts the
-RTL description into hardware and identifies the storage or
-logic requirements created by the incomplete assignment.
-
----
-
-# 5. Incomplete Case Statement
-
-## What I designed
-
-In this experiment, I worked with a case statement that does
-not explicitly assign an output for every possible condition.
-
-A case statement is commonly used to describe multiple
-possible input conditions in RTL.
-
-For combinational logic, it is important to ensure that the
-output receives an appropriate assignment for all required
+The waveform was used to check the output for different input
 conditions.
 
-## Purpose
+### Synthesis
 
-The purpose of this experiment was to understand the effect
-of an incomplete case statement during simulation and
-synthesis.
-
-## Synthesis Result
-
-The RTL was synthesized using Yosys to observe the hardware
+The synthesized representation helps identify the hardware
 generated from the incomplete case description.
 
-![Incomplete Case RTL](incomp.png)
+---
+
+# 3. Complete Case
+
+A complete case statement provides assignments for all required
+conditions.
+
+This coding style helps describe combinational logic correctly
+and avoids unnecessary storage elements.
+
+The RTL was synthesized and the generated netlist and block
+diagram were studied.
+
+### Files
+
+- `comp_case_netlist and blockdia...`
+
+### Result
+
+The experiment showed how a properly specified case statement
+can produce the intended combinational hardware.
 
 ---
 
-# 6. Incomplete Case Simulation
+# 4. DEMUX using Case
 
-## Simulation
+A demultiplexer transfers one input signal to one of several
+outputs according to the select signal.
 
-The incomplete case design was simulated and the waveform
-was observed using GTKWave.
+In this experiment, a DEMUX was described using a case-based
+RTL approach.
 
-The waveform shows how the output behaves for the different
-input and case conditions.
+The design was simulated and the output response was checked
+for different select combinations.
 
-![Incomplete Case Waveform](incompcasewaveform.png)
+### File
 
-## Result
+- `demux_case_waveforms.png`
 
-The simulation helped me understand that an incomplete case
-statement can result in output behavior that depends on the
-previous state when no new assignment is made.
+### Result
 
-This is an important consideration when writing combinational
-RTL.
-
----
-
-# 7. Incomplete Case Netlist
-
-## Synthesis
-
-The incomplete case design was synthesized using Yosys.
-
-The generated netlist was inspected to understand the
-hardware inferred from the RTL.
-
-![Incomplete Case Netlist](incomp netlist.png)
-
-## Result
-
-The synthesized netlist demonstrates how the synthesis tool
-converts the incomplete case description into a hardware
-implementation.
-
-This experiment shows the importance of writing complete
-conditions when describing combinational logic.
+The waveform demonstrates that the input is routed to the
+appropriate output depending on the select value.
 
 ---
 
-# 8. Second Incomplete Design
+# 5. DEMUX using Generate
 
-## What I designed
+In this experiment, a DEMUX was implemented using a generate
+construct.
 
-Another incomplete RTL example was used to further understand
-the effect of missing assignments and conditions.
+The generate statement is useful when a hardware structure
+contains repeated logic.
 
-The design was simulated and synthesized so that the RTL
-behavior could be compared with the resulting hardware.
+Instead of writing every hardware connection individually,
+generate constructs can create multiple similar structures.
 
-## Synthesis
+### File
 
-The second design was synthesized using Yosys and its
-netlist was examined.
+- `demux_generate_waveform.png`
 
-![Second Incomplete Netlist](incomp2 netlist.png)
+### Result
 
-## Result
-
-This experiment provided another example of how incomplete
-RTL descriptions can influence the hardware inferred during
-synthesis.
-
-It reinforced the importance of assigning outputs properly
-for the required input conditions.
+The waveform was used to verify that the generated DEMUX
+produces the expected output for different select inputs.
 
 ---
 
-# 9. Overall Learning
+# 6. Incomplete If-Else
 
-Through the experiments performed on Day 5, I understood the
-following:
+This experiment demonstrates the effect of an incomplete
+`if-else` description in combinational RTL.
 
-- What incomplete RTL means.
-- How incomplete conditions affect RTL behavior.
-- How case statements are used in RTL design.
-- Importance of assigning outputs for required conditions.
-- How incomplete combinational descriptions can infer
-  storage behavior.
-- How GTKWave can be used to analyze RTL waveforms.
-- How Yosys synthesizes incomplete RTL descriptions.
-- How to examine a synthesized netlist.
-- Difference between RTL simulation and synthesized hardware.
-- Importance of writing clear and complete RTL code.
-- How coding style can influence the hardware generated by
-  synthesis tools.
+When an output is not assigned for every possible condition,
+the synthesis tool may preserve the previous value of the
+output.
+
+This can result in latch inference.
+
+### Files
+
+- `incomp_if1 netlist and blockdia...`
+- `incomp_if1_waveform.png`
+- `incomp_if2 netlist and blockdia...`
+- `incomp_if2 waveform.png`
+
+### Result
+
+The experiments show why combinational outputs should normally
+be assigned for every possible input condition.
 
 ---
 
-# 10. Conclusion
+# 7. Incomplete Case
 
-Day 5 helped me understand the importance of writing complete
-and proper RTL descriptions.
+An incomplete case statement does not explicitly define the
+output for every possible input combination.
 
-I worked with incomplete logic and incomplete case statement
-examples and observed their behavior through simulation and
-synthesis.
+This can cause the synthesis tool to infer storage behavior
+depending on the RTL description.
 
-By comparing the waveforms and synthesized netlists, I
-understood how missing assignments or conditions can affect
-the hardware inferred by synthesis tools.
+### Files
 
-This session improved my understanding of RTL coding practices
-and showed why careful coding is important for generating the
-intended digital hardware.
+- `incomp_case_netlist and blockdi...`
+- `incompcasewaveform.png`
+
+### Result
+
+The simulation and synthesized representation were compared
+to understand the effect of missing case assignments.
+
+This experiment emphasizes the importance of writing complete
+combinational RTL.
+
+---
+
+# 8. MUX using Generate
+
+A multiplexer selects one input from multiple inputs based on
+the select signal.
+
+In this experiment, a MUX structure was created using the
+generate construct.
+
+Generate blocks are useful for describing repeated hardware
+connections in a compact manner.
+
+### Files
+
+- `mux_generate_netlist and block...`
+- `muxgenerate waveform.png`
+
+### Result
+
+The waveform verifies the MUX selection operation, while the
+synthesized netlist shows the hardware structure created by
+Yosys.
+
+---
+
+# 9. Partial Case
+
+A partial case statement specifies only some of the possible
+conditions.
+
+If the remaining conditions are not assigned appropriately,
+the synthesis tool may infer additional hardware.
+
+This experiment was used to understand the difference between
+a complete case description and a partial case description.
+
+### File
+
+- `partial_case_netlist and blockdia...`
+
+### Result
+
+The synthesized result demonstrates how the RTL coding style
+affects the resulting hardware.
+
+---
+
+# 10. Ripple Carry Adder
+
+The Ripple Carry Adder (RCA) is a digital arithmetic circuit
+used to perform binary addition.
+
+It is formed by connecting multiple full adders in sequence.
+The carry output of one full adder becomes the carry input of
+the next full adder.
+
+The carry therefore propagates from the least significant bit
+towards the most significant bit.
+
+### File
+
+- `rca waveform.png`
+
+### Working
+
+For each bit position:
+
+- Two input bits are added.
+- The incoming carry is included.
+- A sum output is generated.
+- The carry is passed to the next stage.
+
+### Result
+
+The waveform was used to verify the addition operation and
+observe the propagation of the carry signal through the
+different stages.
+
+---
+
+# 11. Overall Learning
+
+From the Day 5 experiments, I learned:
+
+- The syntax and behavior of case statements.
+- The importance of complete assignments in combinational RTL.
+- The difference between complete and incomplete case logic.
+- How incomplete `if-else` statements can result in latch
+  inference.
+- How incomplete case statements can affect synthesized
+  hardware.
+- How a DEMUX can be described using a case statement.
+- How generate constructs can be used to create repeated
+  hardware.
+- How a MUX can be implemented using generate-based logic.
+- How RTL coding style influences synthesis results.
+- How to analyze synthesized netlists and block diagrams.
+- How to verify RTL functionality using waveforms.
+- The basic structure and operation of a Ripple Carry Adder.
+- The importance of writing synthesizable and complete RTL
+  descriptions.
+
+---
+
+# 12. Conclusion
+
+Day 5 provided practical understanding of RTL coding styles
+and their impact on hardware synthesis.
+
+The experiments with case statements and incomplete
+conditional logic showed why every required condition should
+be handled carefully in combinational designs.
+
+MUX and DEMUX implementations demonstrated how different RTL
+constructs such as `case` and `generate` can be used to describe
+hardware.
+
+The Ripple Carry Adder experiment further helped in
+understanding the implementation of arithmetic circuits using
+basic digital logic.
+
+Overall, the session improved my understanding of RTL design,
+simulation, synthesis, netlist analysis, and hardware
+optimization.
