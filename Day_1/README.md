@@ -1,179 +1,216 @@
-# Day 1 – Good MUX
+# Day 1 - Good MUX
 
-## 📑 Index
+Day 1 focuses on understanding the design, simulation, and synthesis of a good Multiplexer (MUX) using RTL design techniques.
 
-1. [Objective](#objective)
-2. [Theory](#theory)
-3. [Design](#design)
-4. [Simulation](#simulation)
-5. [Synthesis](#synthesis)
-6. [Results](#results)
-7. [What I Learned](#what-i-learned)
-8. [Conclusion](#conclusion)
+In this session, I worked with a properly designed MUX and observed its behavior through RTL simulation and synthesis.
+
+The design was simulated using Verilog and the waveform was observed using GTKWave. The RTL design was also synthesized using Yosys to analyze the generated netlist and block diagram.
 
 ---
 
-## Objective
+# Index
 
-In this experiment, I designed and verified a simple 2:1 Multiplexer
-(MUX) using Verilog RTL.
-
-The design was simulated to verify its functionality and then
-synthesized to observe the corresponding hardware implementation.
+1. [Objective](#1-objective)
+2. [Theory](#2-theory)
+3. [Good MUX](#3-good-mux)
+4. [RTL Simulation](#4-rtl-simulation)
+5. [Synthesis](#5-synthesis)
+6. [Netlist and Block Diagram](#6-netlist-and-block-diagram)
+7. [Overall Learning](#7-overall-learning)
+8. [Conclusion](#8-conclusion)
 
 ---
 
-## Theory
+# 1. Objective
 
-A Multiplexer (MUX) is a combinational digital circuit used to select
-one input from multiple input signals and pass the selected input to
-a single output.
+The main objective of Day 1 was to understand how a Multiplexer can be designed using RTL and how the RTL description is converted into hardware during synthesis.
 
-A 2:1 MUX consists of:
+The main concepts covered were:
 
-- Two data inputs: `i0` and `i1`
-- One select input: `sel`
-- One output: `y`
+- Multiplexer (MUX)
+- RTL design
+- Combinational logic
+- Select signals
+- Input and output signals
+- RTL simulation
+- Waveform analysis using GTKWave
+- RTL synthesis using Yosys
+- Netlist generation
+- Block diagram analysis
+- Verification of MUX functionality
 
-The operation is:
+---
 
-- When `sel = 0`, the output `y` follows `i0`.
-- When `sel = 1`, the output `y` follows `i1`.
+# 2. Theory
+
+## Multiplexer
+
+A Multiplexer, commonly called a MUX, is a combinational digital circuit that selects one input from multiple input signals and transfers the selected input to a single output.
+
+The selection of the input is controlled by select lines.
+
+For a 2:1 MUX:
+
+- There are 2 input signals.
+- There is 1 select signal.
+- There is 1 output signal.
+
+The operation of a 2:1 MUX can be represented as:
+
+| Select | Output |
+|--------|--------|
+| 0 | Input 0 |
+| 1 | Input 1 |
 
 The Boolean expression for a 2:1 MUX is:
 
 ```text
-y = (~sel & i0) | (sel & i1)
+Y = (~S & I0) | (S & I1)
+```
 
-The same functionality can be represented in Verilog using the ternary operator:
+where:
 
-y = sel ? i1 : i0;
+- `I0` = First input
+- `I1` = Second input
+- `S` = Select signal
+- `Y` = Output
 
-Truth Table
-
-sel	y
-
-0	i0
-1	i1
-
-
+A good MUX design should assign the output correctly for every possible value of the select signal.
 
 ---
 
-Design
+# 3. Good MUX
 
-The 2:1 MUX was designed using Verilog HDL at the RTL level.
+## What I designed
 
-The RTL design describes the required functionality of the MUX before synthesis.
+In this experiment, I worked with a properly designed Multiplexer.
 
-The basic design contains two inputs, one select signal and one output.
+The MUX was described using RTL coding techniques to implement combinational logic.
 
-i0 ─────┐
-                │
-                │
-             ┌──▼───┐
-        i1 ─►│  MUX │────► y
-             └──┬───┘
-                │
-               sel
+The select signal determines which input is connected to the output.
 
-The select signal determines which input is passed to the output.
+When the select signal is `0`, the first input is selected.
 
+When the select signal is `1`, the second input is selected.
 
----
+The design provides a complete assignment for the output, so unintended latch inference is avoided.
 
-Simulation
+## Working
 
-The RTL design was simulated using a testbench to verify the functionality of the MUX.
+The operation of the MUX is:
 
-Different combinations of i0, i1, and sel were applied during simulation.
+```text
+If select = 0:
+    output = input 0
 
-The output y was observed to ensure that it follows the selected input.
+If select = 1:
+    output = input 1
+```
 
-Testbench Waveform
+Therefore, the output always follows the selected input.
 
+## Result
 
-
-The waveform verifies that:
-
-sel = 0 → y = i0
-
-sel = 1 → y = i1
-
-
-Therefore, the simulation confirms the correct operation of the 2:1 MUX.
-
+The Good MUX design correctly selects the required input according to the select signal.
 
 ---
 
-Synthesis
+# 4. RTL Simulation
 
-After successful RTL simulation, the MUX design was synthesized.
+## Simulation
 
-Synthesis converts the RTL description into a hardware-level representation. The synthesized design can be analyzed using the generated netlist and block diagram.
+The RTL design was simulated to verify the functional behavior of the MUX.
 
-Netlist and Block Diagram
+The simulation waveform was observed using GTKWave.
 
+The input signals, select signal, and output signal were checked for different combinations.
 
+The waveform confirms that the output follows the selected input.
 
-The synthesis result represents the hardware implementation generated from the RTL MUX design.
+### GTKWave Simulation Result
 
+![Good MUX Waveform](./goodmuxtbwaveform.png)
 
----
+## Waveform Analysis
 
-Results
+When the select signal changes, the output changes according to the selected input.
 
-The 2:1 MUX was successfully simulated and synthesized.
+For example:
 
-The simulation waveform verified that the output correctly follows the selected input.
+- When `select = 0`, the output follows input `I0`.
+- When `select = 1`, the output follows input `I1`.
 
-The synthesized netlist and block diagram showed the corresponding hardware implementation of the MUX.
+This confirms the correct functional behavior of the MUX.
 
+## File
 
----
-
-What I Learned
-
-From this experiment, I learned:
-
-The basic concept and working of a 2:1 Multiplexer.
-
-How to describe a MUX using Verilog RTL.
-
-How the select signal controls the output.
-
-How to perform RTL simulation.
-
-How to analyze simulation waveforms.
-
-The basic RTL-to-synthesis flow.
-
-How to understand a synthesized netlist and block diagram.
-
-How RTL code is converted into hardware.
-
-
+- `goodmux waveform.png` - GTKWave simulation waveform
 
 ---
 
-Conclusion
+# 5. Synthesis
 
-The 2:1 Good MUX was successfully designed using Verilog RTL.
+After verifying the RTL functionality through simulation, the design was synthesized using Yosys.
 
-The simulation waveform verified the correct functionality of the design, where the output follows i0 when sel = 0 and follows i1 when sel = 1.
+Synthesis converts the RTL description into a gate-level representation of the hardware.
 
-The design was also synthesized successfully, and the generated netlist and block diagram provided the hardware representation of the MUX.
+Yosys analyzes the RTL and generates the corresponding hardware implementation.
 
-This experiment helped in understanding the basic RTL design, simulation, verification and synthesis flow.
-
+The synthesized design was checked to verify that the intended MUX functionality was preserved.
 
 ---
 
-🔝 Back to Index
+# 6. Netlist and Block Diagram
 
-Back to Index
+The synthesized netlist and block diagram were observed to understand how the MUX RTL was converted into hardware.
 
-This version uses your **exact Day 1 filenames**:
+The block diagram shows the input signals, select signal, multiplexer logic, and output connection.
 
-`goodmuxtbwaveform.png`  
-`goodmux netlist and blocksdiagram.png`
+### Netlist and Block Diagram Result
+
+![Good MUX Netlist and Block Diagram](./goodmux%20netlist%20and%20blockdiagram.png)
+
+## Result
+
+The synthesized circuit represents the required MUX functionality using hardware logic.
+
+The netlist helps show the actual logic structure generated from the RTL description.
+
+The block diagram provides a graphical representation of the synthesized circuit.
+
+## File
+
+- `goodmux netlist and blockdiagra.png` - Yosys netlist and block diagram
+
+---
+
+# 7. Overall Learning
+
+Through the Day 1 Good MUX experiment, I understood the following:
+
+- What a Multiplexer is.
+- How a MUX selects one input from multiple inputs.
+- How select signals control a MUX.
+- How to design a MUX using RTL.
+- How combinational logic is represented in Verilog.
+- How to verify MUX functionality using simulation.
+- How to observe RTL waveforms using GTKWave.
+- How the output changes according to the select signal.
+- How RTL code is synthesized using Yosys.
+- How a synthesized netlist represents the hardware.
+- How to analyze a synthesized block diagram.
+- The relationship between RTL code and synthesized hardware.
+- The importance of complete assignments in combinational logic.
+- How a properly designed MUX avoids unintended latch inference.
+
+---
+
+# 8. Conclusion
+
+Day 1 helped me understand the basic concept and implementation of a Multiplexer using RTL design.
+
+I designed a Good MUX and verified its functionality through RTL simulation using GTKWave. The waveform confirmed that the output correctly follows the input selected by the select signal.
+
+The design was then synthesized using Yosys, and the generated netlist and block diagram were analyzed to understand the corresponding hardware implementation.
+
+Overall, Day 1 provided a basic understanding of MUX design, RTL simulation, waveform analysis, synthesis, netlist generation, and the conversion of RTL code into digital hardware.
