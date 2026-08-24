@@ -3,116 +3,177 @@
 ## 📑 Index
 
 1. [Objective](#objective)
-2. [Design](#design)
-3. [Simulation](#simulation)
-4. [Synthesis](#synthesis)
-5. [Results](#results)
-6. [What I Learned](#what-i-learned)
-7. [Conclusion](#conclusion)
+2. [Theory](#theory)
+3. [Design](#design)
+4. [Simulation](#simulation)
+5. [Synthesis](#synthesis)
+6. [Results](#results)
+7. [What I Learned](#what-i-learned)
+8. [Conclusion](#conclusion)
 
 ---
 
 ## Objective
 
 In this experiment, I designed and verified a simple 2:1 Multiplexer
-(MUX) using Verilog. The design was first simulated to verify its
-functional behavior and then synthesized using Yosys to observe how
-the RTL design is converted into a gate-level implementation.
+(MUX) using Verilog RTL.
+
+The design was simulated to verify its functionality and then
+synthesized to observe the corresponding hardware implementation.
 
 ---
 
-## Design
+## Theory
 
-The Good MUX has two data inputs, one select input, and one output.
+A Multiplexer (MUX) is a combinational digital circuit used to select
+one input from multiple input signals and pass the selected input to
+a single output.
 
-- `i0` – First data input
-- `i1` – Second data input
-- `sel` – Select input
-- `y` – Output
+A 2:1 MUX consists of:
 
-The operation of the MUX is:
+- Two data inputs: `i0` and `i1`
+- One select input: `sel`
+- One output: `y`
 
-- When `sel = 0`, `y = i0`
-- When `sel = 1`, `y = i1`
+The operation is:
 
-The Verilog RTL describes this behavior using an `always` block.
+- When `sel = 0`, the output `y` follows `i0`.
+- When `sel = 1`, the output `y` follows `i1`.
 
----
+The Boolean expression for a 2:1 MUX is:
 
-## Simulation
+```text
+y = (~sel & i0) | (sel & i1)
 
-After writing the RTL, I simulated the Good MUX using a Verilog
-simulation environment. Different combinations of `i0`, `i1`, and
-`sel` were applied through the testbench.
+The same functionality can be represented in Verilog using the ternary operator:
 
-The generated waveform was viewed using GTKWave. The waveform contains
-the signals `i0`, `i1`, `sel`, and `y`.
+y = sel ? i1 : i0;
 
-The waveform confirms that the output `y` follows the selected input
-correctly.
+Truth Table
 
-### GTKWave Simulation Result
+sel	y
 
-![Good MUX Waveform](./goodmuxtbwaveform.png)
+0	i0
+1	i1
 
----
 
-## Synthesis
-
-After successful simulation, I synthesized the Good MUX RTL using
-Yosys.
-
-The synthesized design was mapped to the Sky130 standard cell library.
-The generated netlist and block diagram show how the MUX functionality
-is represented at the gate level.
-
-### Yosys Synthesized Block Diagram
-
-![Good Net list and Block Diagram](./goodmux netlist and blocksdiagram.png)
 
 ---
 
-## Results
+Design
 
-The Good MUX was successfully simulated and synthesized.
+The 2:1 MUX was designed using Verilog HDL at the RTL level.
 
-The GTKWave output verified the functional behavior of the MUX for
-different input and select combinations.
+The RTL design describes the required functionality of the MUX before synthesis.
 
-The Yosys synthesis result generated the corresponding gate-level
-implementation and block diagram, showing the mapping of the RTL
-design to a standard cell from the Sky130 library.
+The basic design contains two inputs, one select signal and one output.
+
+i0 ─────┐
+                │
+                │
+             ┌──▼───┐
+        i1 ─►│  MUX │────► y
+             └──┬───┘
+                │
+               sel
+
+The select signal determines which input is passed to the output.
+
 
 ---
 
-## What I Learned
+Simulation
+
+The RTL design was simulated using a testbench to verify the functionality of the MUX.
+
+Different combinations of i0, i1, and sel were applied during simulation.
+
+The output y was observed to ensure that it follows the selected input.
+
+Testbench Waveform
+
+
+
+The waveform verifies that:
+
+sel = 0 → y = i0
+
+sel = 1 → y = i1
+
+
+Therefore, the simulation confirms the correct operation of the 2:1 MUX.
+
+
+---
+
+Synthesis
+
+After successful RTL simulation, the MUX design was synthesized.
+
+Synthesis converts the RTL description into a hardware-level representation. The synthesized design can be analyzed using the generated netlist and block diagram.
+
+Netlist and Block Diagram
+
+
+
+The synthesis result represents the hardware implementation generated from the RTL MUX design.
+
+
+---
+
+Results
+
+The 2:1 MUX was successfully simulated and synthesized.
+
+The simulation waveform verified that the output correctly follows the selected input.
+
+The synthesized netlist and block diagram showed the corresponding hardware implementation of the MUX.
+
+
+---
+
+What I Learned
 
 From this experiment, I learned:
 
-- How to design a 2:1 MUX using Verilog RTL.
-- How to create and use a testbench for functional verification.
-- How to simulate a Verilog design.
-- How to generate and analyze waveform outputs using GTKWave.
-- How to synthesize RTL using Yosys.
-- How RTL logic is converted into a gate-level netlist.
-- How a synthesized design can be represented using standard cells.
-- How to observe the relationship between RTL code and synthesized hardware.
+The basic concept and working of a 2:1 Multiplexer.
+
+How to describe a MUX using Verilog RTL.
+
+How the select signal controls the output.
+
+How to perform RTL simulation.
+
+How to analyze simulation waveforms.
+
+The basic RTL-to-synthesis flow.
+
+How to understand a synthesized netlist and block diagram.
+
+How RTL code is converted into hardware.
+
+
 
 ---
 
-## Conclusion
+Conclusion
 
-The Good MUX was successfully designed, simulated, and synthesized.
-The simulation waveform verified that the output correctly follows the
-selected input. The Yosys synthesis result demonstrated the conversion
-of the RTL MUX into a gate-level implementation using the Sky130
-standard cell library.
+The 2:1 Good MUX was successfully designed using Verilog RTL.
 
-This experiment provided a practical understanding of the basic
-RTL-to-gate-level digital design flow.
+The simulation waveform verified the correct functionality of the design, where the output follows i0 when sel = 0 and follows i1 when sel = 1.
+
+The design was also synthesized successfully, and the generated netlist and block diagram provided the hardware representation of the MUX.
+
+This experiment helped in understanding the basic RTL design, simulation, verification and synthesis flow.
+
 
 ---
 
-### 🔝 Back to Index
+🔝 Back to Index
 
-[Back to Index](#-index)
+Back to Index
+
+This version uses your **exact Day 1 filenames**:
+
+`goodmuxtbwaveform.png`  
+`goodmux netlist and blocksdiagram.png`
