@@ -6,16 +6,16 @@
 
 ## Index
 
-1. [Introduction](#introduction)
-2. [Objective](#objective)
-3. [Design Used](#design-used)
-4. [ASIC Design Flow](#asic-design-flow)
-5. [Configuration and Flow Files](#configuration-and-flow-files)
-6. [Synthesis and Statistics](#synthesis-and-statistics)
-7. [Floorplanning and Physical Design](#floorplanning-and-physical-design)
-8. [LEF Merging](#lef-merging)
-9. [Timing Analysis](#timing-analysis)
-10. [Results and Conclusion](#results-and-conclusion)
+1. Introduction
+2. Objective
+3. Design Used
+4. ASIC Design Flow
+5. Configuration and Flow Files
+6. Synthesis and Statistics
+7. Floorplanning and Physical Design
+8. LEF Merging
+9. Timing Analysis
+10. Results and Conclusion
 
 ---
 
@@ -107,7 +107,7 @@ The generated physical design is inspected to understand how the synthesized log
 
 ### Physical Design
 
-![PicoRV32A Physical Design](design picorva dates.png)
+![PicoRV32A Physical Design](design_picorva_dates.png)
 
 ---
 
@@ -119,13 +119,13 @@ The LEF files are merged so that the physical implementation tools can use the r
 
 ### LEF Merging
 
-![LEF Merging](designs_picorv32a merging lefs.png)
+![LEF Merging](designs_picorv32a_merging_lefs.png)
 
-![Merged Design](less merged.png)
+![Merged Design](less_merged.png)
 
-![Merged Design 2](less merged2.png)
+![Merged Design 2](less_merged2.png)
 
-![Merged Design 3](less merged 3.png)
+![Merged Design 3](less_merged%203.png)
 
 ---
 
