@@ -6,16 +6,16 @@
 
 ## Index
 
-1. Introduction
-2. Objective
-3. Design Used
-4. ASIC Design Flow
-5. Configuration and Flow Files
-6. Synthesis and Statistics
-7. Floorplanning and Physical Design
-8. LEF Merging
-9. Timing Analysis
-10. Results and Conclusion
+1. [Introduction](#introduction)
+2. [Objective](#objective)
+3. [Design Used](#design-used)
+4. [ASIC Design Flow](#asic-design-flow)
+5. [Configuration and Flow Files](#configuration-and-flow-files)
+6. [Synthesis and Statistics](#synthesis-and-statistics)
+7. [Floorplanning and Physical Design](#floorplanning-and-physical-design)
+8. [LEF Merging](#lef-merging)
+9. [Timing Analysis](#timing-analysis)
+10. [Results and Conclusion](#results-and-conclusion)
 
 ---
 
